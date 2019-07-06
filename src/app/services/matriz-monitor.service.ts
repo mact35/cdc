@@ -19,7 +19,7 @@ export class MatrizMonitorService {
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<MatrizMonitor>(`http://afb63d70.ngrok.io/matriz-monitor/${ent.fecha}/${ent.cEntidad}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
+    .get<MatrizMonitor>(`https://afb63d70.ngrok.io/matriz-monitor/${ent.fecha}/${ent.cEntidad}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }
