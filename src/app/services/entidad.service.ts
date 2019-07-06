@@ -18,7 +18,7 @@ export class EntidadService {
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<Entidad>(`https://afb63d70.ngrok.io/entidades`, {headers})
+    .get<Entidad>(`https://afb63d70.ngrok.io/entidades/`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }
