@@ -1,0 +1,39 @@
+td{
+    text-align: right;
+}
+th{
+    text-align: center;
+}
+
+.reporte, th, td{
+    border: 1px solid black;
+    font-size: 8pt;
+    padding: 2px 5px 2px;
+}
+.reporte td{
+    width: fit-content;
+}
+.reporte, th.blank{
+    border: 0;
+    background-color: white;
+}
+.reporte thead{
+    background-color: rgb(179, 176, 176);
+}
+.reporte{
+    padding: 10px;
+}
+
+.fijo{
+    width: 200px;
+}
+.row{
+    margin: 20px;
+}
+
+.custom-select{
+    font-size: 9pt;
+    width: fit-content;
+    
+    display: inline-block;
+}
