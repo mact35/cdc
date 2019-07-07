@@ -1,4 +1,6 @@
 export class EntidadResumen{
+    id: number
+    nombreFile: String
     color: String
     cod: String
     accion: String

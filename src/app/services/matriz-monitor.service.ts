@@ -24,13 +24,13 @@ export class MatrizMonitorService {
     //.map(response => response.json());
   }
 
-  public getMatrizMonitorDetalle(): Observable<MatrizMonitor>{
+  public getMatrizMonitorDetalle(id: number, cods: String): Observable<MatrizMonitor>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<MatrizMonitor>(`http://localhost:5000/download/333/RC`, {headers})
+    .get<MatrizMonitor>(`http://localhost:5000/download/${id}/${cods}`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }

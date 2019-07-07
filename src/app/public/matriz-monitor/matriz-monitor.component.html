@@ -218,7 +218,7 @@
     <tbody>
       <tr *ngFor="let entRes of arrayEntidadResumen">
         <td style="text-align: left;" [style.background-color]="entRes.color">
-          <div (click)="download(entRes.cod)" class="divDownload">
+          <div (click)="download(entRes.id, entRes.cod, entRes.nombreFile)" class="divDownload">
             {{entRes.accion}}
           </div>
           </td>

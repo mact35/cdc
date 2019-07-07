@@ -83,10 +83,10 @@ export class MatrizMonitorComponent implements OnInit {
     }
   }
 
-  download(cods: any){
+  download(id: number, cods: String, nombreFile: String){
     console.log("function called"+cods);
 
-    this._matrizMonitor.getMatrizMonitorDetalle()
+    this._matrizMonitor.getMatrizMonitorDetalle(id, cods)
     .subscribe((dataJSON) => {
       var data = dataJSON[0]
 
@@ -97,20 +97,20 @@ export class MatrizMonitorComponent implements OnInit {
     let csvArray = csv.join('\r\n')
 
     var blob = new Blob([csvArray], {type: 'text/csv' })
-    saveAs(blob, "myFile.csv")
+    saveAs(blob, nombreFile)
 
       }
     , err => {
       console.log(err);
     });   
 
-    
-    //var blob = new Blob(["Hello, world!"], {type: "text/csv;charset=utf-8"});
-    //saveAs(blob, "hello world.csv");
   }
 
   agregarResumen(){
     this.arrayEntidadResumen = new Array()
+
+    let idMatriz: number = 0;
+
     let nBliCli: number = 0
     let nBliDeuda: number = 0
     
@@ -133,6 +133,8 @@ export class MatrizMonitorComponent implements OnInit {
     let nPreDeuda: number = 0
 
     this.arrayMatrizMonitor.forEach(monitor => {
+      idMatriz = monitor.id
+
       if (monitor.excluCod != ""){
         if ("R0C1|R1C1|R2C1".search(monitor.excluCod.toString()) >= 0 ){
           nBliCli += monitor.excluCli
@@ -202,6 +204,8 @@ export class MatrizMonitorComponent implements OnInit {
     })
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = idMatriz
+    this.entidadResumen.nombreFile = "BlindarClientes_"+this.entidadBus.fecha.toString()+".csv"
     this.entidadResumen.cod = "R0C1|R1C1|R2C1"
     this.entidadResumen.color = this.cBlindar
     this.entidadResumen.accion = "Blindar Clientes"
@@ -212,6 +216,8 @@ export class MatrizMonitorComponent implements OnInit {
     this.arrayEntidadResumen.push(this.entidadResumen)
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = idMatriz
+    this.entidadResumen.nombreFile = "FidelizarClientes_"+this.entidadBus.fecha.toString()+".csv"
     this.entidadResumen.cod = "R0C2|R1C2|R0C3|R1C3"
     this.entidadResumen.color = this.cFidelizar
     this.entidadResumen.accion = "Fidelizar Clientes"
@@ -222,6 +228,8 @@ export class MatrizMonitorComponent implements OnInit {
     this.arrayEntidadResumen.push(this.entidadResumen)
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = idMatriz
+    this.entidadResumen.nombreFile = "VigilarCartera_"+this.entidadBus.fecha.toString()+".csv"
     this.entidadResumen.cod = "R2C2|R2C3|R0C4|R1C4|R2C4"
     this.entidadResumen.color = this.cVigilarCar
     this.entidadResumen.accion = "Vigilar Cartera"
@@ -232,6 +240,8 @@ export class MatrizMonitorComponent implements OnInit {
     this.arrayEntidadResumen.push(this.entidadResumen)
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = idMatriz
+    this.entidadResumen.nombreFile = "PrevenirDeterioro_"+this.entidadBus.fecha.toString()+".csv"
     this.entidadResumen.cod = "R0C5|R1C5|R2C5|R0C6|R1C6|R2C6"
     this.entidadResumen.color = this.cPrevenir
     this.entidadResumen.accion = "Prevenir Deterioro"
@@ -242,6 +252,8 @@ export class MatrizMonitorComponent implements OnInit {
     this.arrayEntidadResumen.push(this.entidadResumen)
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = idMatriz
+    this.entidadResumen.nombreFile = "MejorarCobranza_"+this.entidadBus.fecha.toString()+".csv"
     this.entidadResumen.cod = "R3C1|R4C1"
     this.entidadResumen.color = this.cMejorar
     this.entidadResumen.accion = "Mejorar Cobranza"
@@ -252,6 +264,8 @@ export class MatrizMonitorComponent implements OnInit {
     this.arrayEntidadResumen.push(this.entidadResumen)
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = idMatriz
+    this.entidadResumen.nombreFile = "VigilarCobranza_"+this.entidadBus.fecha.toString()+".csv"
     this.entidadResumen.cod = "R3C2|R4C2|R3C3|R4C3|R3C4|R3C4"
     this.entidadResumen.color = this.cVigilarCob
     this.entidadResumen.accion = "Vigilar Cobranza"
@@ -262,6 +276,8 @@ export class MatrizMonitorComponent implements OnInit {
     this.arrayEntidadResumen.push(this.entidadResumen)
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = idMatriz
+    this.entidadResumen.nombreFile = "CostoBeneficio_"+this.entidadBus.fecha.toString()+".csv"
     this.entidadResumen.cod = "R3C5|R4C5|R3C6|R4C6"
     this.entidadResumen.color = this.cCostoBen
     this.entidadResumen.accion = "Costo/Beneficio"
@@ -272,6 +288,7 @@ export class MatrizMonitorComponent implements OnInit {
     this.arrayEntidadResumen.push(this.entidadResumen)
 
     this.entidadResumen = new EntidadResumen()
+    this.entidadResumen.id = 0
     this.entidadResumen.cod = ""
     this.entidadResumen.color = ""
     this.entidadResumen.accion = ""
@@ -365,7 +382,7 @@ export class MatrizMonitorComponent implements OnInit {
         },err => {
           console.log(err);
         });
-    this.entidadBus = new EntidadBusqueda()
+    //this.entidadBus = new EntidadBusqueda()
     
   }
 }
