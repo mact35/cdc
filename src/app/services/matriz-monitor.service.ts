@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry} from 'rxjs/operators'
 import {MatrizMonitor} from '../model/MatrizMonitor'
 import { EntidadBusqueda } from '../model/entidadBusqueda';
+import {Config} from './../config';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class MatrizMonitorService {
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<MatrizMonitor>(`http://localhost:5000/matriz-monitor/${ent.fecha}/${ent.cEntidad}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
+    .get<MatrizMonitor>(`${Config.API_SERVER_URL}/matriz-monitor/${ent.fecha}/${ent.cEntidad}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }
@@ -30,7 +31,7 @@ export class MatrizMonitorService {
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<MatrizMonitor>(`http://localhost:5000/download/${id}/${cods}`, {headers})
+    .get<MatrizMonitor>(`${Config.API_SERVER_URL}/download/${id}/${cods}`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }

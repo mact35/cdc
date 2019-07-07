@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable, throwError } from 'rxjs';
 import { retry} from 'rxjs/operators'
 import {Entidad} from '../model/entidad';
+import {Config} from './../config';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class EntidadService {
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<Entidad>(`http://localhost:5000/entidades/`, {headers})
+    .get<Entidad>(`${Config.API_SERVER_URL}/entidades/`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }
