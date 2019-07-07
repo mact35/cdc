@@ -7,7 +7,7 @@ th{
 
 .reporte, th, td{
     border: 1px solid black;
-    font-size: 8pt;
+    font-size: 10pt;
     padding: 2px 5px 2px;
 }
 .reporte td{
@@ -19,6 +19,7 @@ th{
 }
 .reporte thead{
     background-color: rgb(179, 176, 176);
+    font-size: 10pt;
 }
 .reporte{
     padding: 10px;
@@ -34,6 +35,17 @@ th{
 .custom-select{
     font-size: 9pt;
     width: fit-content;
-    
     display: inline-block;
+}
+
+.divDownload{
+    color: black;
+    text-decoration-line: underline;
+    font-size: 10pt;
+    filter: invert(0%)
+}
+.divDownload:hover{
+    color: yellow;
+    cursor: pointer;
+    filter: invert(100%)
 }

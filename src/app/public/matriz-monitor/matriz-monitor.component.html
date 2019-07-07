@@ -217,7 +217,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let entRes of arrayEntidadResumen">
-        <td style="text-align: left" [style.background-color]="entRes.color">{{entRes.accion}}</td>
+        <td style="text-align: left;" [style.background-color]="entRes.color">
+          <div (click)="download(entRes.cod)" class="divDownload">
+            {{entRes.accion}}
+          </div>
+          </td>
         <td >{{entRes.clientes | number}}</td>
         <td >{{entRes.clientesPor.toFixed(2) | number}}</td>
         <td >{{entRes.deuda | number}} </td>

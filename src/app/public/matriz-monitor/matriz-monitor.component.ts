@@ -7,7 +7,9 @@ import {EntidadService} from '../../services/entidad.service';
 import {TipoEntidad} from '../../model/tipoEntidad';
 import { EntidadBusqueda } from 'src/app/model/entidadBusqueda';
 import { EntidadResumen } from 'src/app/model/entidadResumen';
-import { FileDetector } from 'selenium-webdriver/remote';
+import { saveAs } from 'file-saver'
+//var FileSaver = require('file-saver');
+
 
 @Component({
   selector: 'app-matriz-monitor',
@@ -81,8 +83,30 @@ export class MatrizMonitorComponent implements OnInit {
     }
   }
 
-  download(color: any){
-    console.log("function called"+color);
+  download(cods: any){
+    console.log("function called"+cods);
+
+    this._matrizMonitor.getMatrizMonitorDetalle()
+    .subscribe((dataJSON) => {
+      var data = dataJSON[0]
+
+      const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+    const header = Object.keys(data[0])
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+    csv.unshift(header.join(','))
+    let csvArray = csv.join('\r\n')
+
+    var blob = new Blob([csvArray], {type: 'text/csv' })
+    saveAs(blob, "myFile.csv")
+
+      }
+    , err => {
+      console.log(err);
+    });   
+
+    
+    //var blob = new Blob(["Hello, world!"], {type: "text/csv;charset=utf-8"});
+    //saveAs(blob, "hello world.csv");
   }
 
   agregarResumen(){

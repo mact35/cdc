@@ -19,9 +19,19 @@ export class MatrizMonitorService {
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<MatrizMonitor>(`https://afb63d70.ngrok.io/matriz-monitor/${ent.fecha}/${ent.cEntidad}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
+    .get<MatrizMonitor>(`http://localhost:5000/matriz-monitor/${ent.fecha}/${ent.cEntidad}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }
 
+  public getMatrizMonitorDetalle(): Observable<MatrizMonitor>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    //const options = new RequestOptions({headers: headers});
+    return this._http
+    .get<MatrizMonitor>(`http://localhost:5000/download/333/RC`, {headers})
+    .pipe(retry(1));
+    //.map(response => response.json());
+  }
 }
