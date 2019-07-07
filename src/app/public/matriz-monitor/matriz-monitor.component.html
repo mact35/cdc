@@ -1,6 +1,16 @@
- <div *ngIf="isLoading; else elseBlock">
-  <sk-rotating-plane></sk-rotating-plane>
+ <div *ngIf="isLoading || isDownload; else elseBlock">
+   <div *ngIf="isLoading;" style="text-align: center;">
+     <!-- <sk-rotating-plane></sk-rotating-plane> -->
+     <!-- <sk-fading-circle></sk-fading-circle> -->
+     <sk-cube-grid ></sk-cube-grid>
+     <p class="textoFadeInOut">Generando información</p>
+   </div>
+  <div *ngIf="isDownload;" style="text-align: center;">
+    <sk-cube-grid ></sk-cube-grid>
+    <p class="textoFadeInOut">Generando reporte .CSV</p>
+  </div>
 </div>
+
 
 <ng-template #elseBlock>
 <div style="width: 1024px; margin: 30px">
@@ -132,8 +142,8 @@
     <thead>
       <tr>
         <th class="blank"></th>
-        <th colspan="5">Clientes con Deuda en la Entidad Financiera</th>
-        <th colspan="10">Clientes Comunes con Deuda en Otras Entidades</th>
+        <th colspan="5">Deuda de clientes en la Entidad Financiera</th>
+        <th colspan="10">Deuda de clientes con Deuda en Otras Entidades</th>
         <th colspan="4">Totales</th>
       </tr>
       <tr>

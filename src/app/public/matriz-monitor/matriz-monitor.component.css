@@ -49,3 +49,27 @@ th{
     cursor: pointer;
     filter: invert(100%)
 }
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0%;
+  }
+}
+
+.textoFadeInOut {
+  font-size: 2.4rem;
+  opacity: 0;
+  animation-name: fadeInOut;
+  animation-delay: 2.5s;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
