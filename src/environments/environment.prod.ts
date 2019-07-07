@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  API_SERVER_URL: 'https://f79dc751.ngrok.io'
 };
