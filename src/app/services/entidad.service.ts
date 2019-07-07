@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable, throwError } from 'rxjs';
 import { retry} from 'rxjs/operators'
 import {Entidad} from '../model/entidad';
-import {Config} from './../config';
+//import {Config} from './../config';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

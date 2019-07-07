@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry} from 'rxjs/operators'
 import {MatrizMonitor} from '../model/MatrizMonitor'
 import { EntidadBusqueda } from '../model/entidadBusqueda';
-import {Config} from './../config';
+//import {Config} from './../config';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
