@@ -12,7 +12,14 @@
 </div>
 
 
+
 <ng-template #elseBlock>
+
+  <p><ngb-progressbar type="success" [value]="value" [striped]="true" [animated]="true">{{value}}%</ngb-progressbar></p>
+
+<progress-bar [progress]="value" [color]="'#488aff'">
+</progress-bar>
+
 <div style="width: 1024px; margin: 30px">
   <div class="row">
     <div class="col">
@@ -228,7 +235,7 @@
     <tbody>
       <tr *ngFor="let entRes of arrayEntidadResumen">
         <td style="text-align: left;" [style.background-color]="entRes.color">
-          <div (click)="download(entRes.id, entRes.cod, entRes.nombreFile)" class="divDownload">
+          <div (click)="download(entRes.id, entRes.cod, entRes.nombreFile, entRes.clientes)" class="divDownload">
             {{entRes.accion}}
           </div>
           </td>

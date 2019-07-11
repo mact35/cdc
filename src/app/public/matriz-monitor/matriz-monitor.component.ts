@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 import { MatrizMonitorService } from '../../services/matriz-monitor.service';
 import { MatrizMonitor } from '../../model/MatrizMonitor';
 
@@ -14,7 +14,7 @@ import { saveAs } from 'file-saver'
   templateUrl: './matriz-monitor.component.html',
   styleUrls: ['./matriz-monitor.component.css']
 })
-export class MatrizMonitorComponent implements OnInit {
+export class MatrizMonitorComponent implements OnInit, DoCheck {
 
   arrayMatrizMonitor: Array<MatrizMonitor>;
   arrayEntidades: Array<Entidad>;
@@ -41,7 +41,12 @@ export class MatrizMonitorComponent implements OnInit {
   selTipEnt: String
   selOtrEnt: String
 
-  constructor(public _matrizMonitor: MatrizMonitorService, public _entidadService: EntidadService) { }
+ public values: string
+ public value: string = '0'
+
+  constructor(public _matrizMonitor: MatrizMonitorService
+  , public _entidadService: EntidadService
+  , private zone: NgZone) { }
 
 
   ngOnInit() {
@@ -60,9 +65,13 @@ export class MatrizMonitorComponent implements OnInit {
         })
       }, err => {
         console.log(err);
-      });
+      }); 
   }
 
+  ngDoCheck(){
+    console.log('cambio detectado')
+  }
+/*
   onChange_fecha(event: any) {
     this.fecha = event.target.value
   }
@@ -70,7 +79,7 @@ export class MatrizMonitorComponent implements OnInit {
   onChange_selEnt(event: any) {
     this.selEnt = event.target.value
   }
-
+*/
   onChange_cargaOEF() {
     //console.log(this.entidadBus.cTipoEntidad);
     if (this.entidadBus.cTipoEntidad != "0" && this.entidadBus.cEntidad != "0") {
@@ -82,16 +91,32 @@ export class MatrizMonitorComponent implements OnInit {
     }
   }
 
-  download(id: number, cods: String, nombreFile: String) {
+  download(id: number, cods: String, nombreFile: String, total: number) {
     //console.log("function called"+cods);
-    this.isDownload = true
+    //this.isDownload = true
+      this.zone.runOutsideAngular(() => {
     this._matrizMonitor.getMatrizMonitorDetalle(id, cods)
       .subscribe((dataJSON) => {
         var data = dataJSON[0]
 
+        var i: number = 0.00
+        total = total * 1.00
+
         const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
         const header = Object.keys(data[0])
-        let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+        let csv = data.map(row => {header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(',')
+        
+        console.log(i +" from " + total)
+  
+
+        i += 1
+        this.value = ((i/total)*100.00).toString()
+        //this.zone.run(()  => this.value = ((i/total)*100.00).toString())
+        this.zone.run(() => {setTimeout(() => this.value = ((i/total)*100.00).toString(),1)})
+
+        
+        console.log(this.value)
+        })
         csv.unshift(header.join(','))
         let csvArray = csv.join('\r\n')
 
@@ -104,6 +129,8 @@ export class MatrizMonitorComponent implements OnInit {
         , err => {
           console.log(err);
         });
+    })
+
 
   }
 

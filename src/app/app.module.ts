@@ -7,17 +7,22 @@ import { MatrizMonitorService } from './services/matriz-monitor.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { NgSpinKitModule } from 'ng-spin-kit'
-
+import { LoadingComponent } from './public/loading/loading.component'
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap'
+import { ProgressBarModule } from 'angular-progress-bar'
 @NgModule({
   declarations: [
     AppComponent,
-    MatrizMonitorComponent
+    MatrizMonitorComponent,
+    LoadingComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    NgSpinKitModule
+    NgSpinKitModule,
+    NgbProgressbarModule,
+    ProgressBarModule
   ],
   providers: [MatrizMonitorService],
   bootstrap: [AppComponent]
