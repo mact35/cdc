@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable, throwError } from 'rxjs';
 import { retry} from 'rxjs/operators'
 import {MatrizMonitor} from '../model/MatrizMonitor'
-import { EntidadBusqueda } from '../model/entidadBusqueda';
+import { Entidad } from '../model/entidad';
 //import {Config} from './../config';
 import { environment } from 'src/environments/environment';
 
@@ -15,13 +15,13 @@ export class MatrizMonitorService {
 
   constructor(public _http: HttpClient) { }
   
-  public getMatrizMonitor(ent: EntidadBusqueda): Observable<MatrizMonitor>{
+  public getMatrizMonitor(ent: Entidad): Observable<MatrizMonitor>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     //const options = new RequestOptions({headers: headers});
     return this._http
-    .get<MatrizMonitor>(`${environment.API_SERVER_URL}/matriz-monitor/${ent.fecha}/${ent.cEntidad}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
+    .get<MatrizMonitor>(`${environment.API_SERVER_URL}/matriz-monitor/${ent.fecha}/${ent.cEntidadFinanciera}/${ent.cTipoEntidad}/${ent.cOtraEntidad}`, {headers})
     .pipe(retry(1));
     //.map(response => response.json());
   }

@@ -9,12 +9,14 @@ import { FormsModule } from '@angular/forms'
 import { NgSpinKitModule } from 'ng-spin-kit'
 import { LoadingComponent } from './public/loading/loading.component'
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap'
-import { ProgressBarModule } from 'angular-progress-bar'
+import { ProgressBarModule } from 'angular-progress-bar';
+import { HeaderComponent } from './public/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
     MatrizMonitorComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeaderComponent
   ],
   imports: [
     HttpClientModule,

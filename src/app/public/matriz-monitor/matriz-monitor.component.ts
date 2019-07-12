@@ -5,7 +5,7 @@ import { MatrizMonitor } from '../../model/MatrizMonitor';
 import { Entidad } from '../../model/entidad';
 import { EntidadService } from '../../services/entidad.service';
 import { TipoEntidad } from '../../model/tipoEntidad';
-import { EntidadBusqueda } from 'src/app/model/entidadBusqueda';
+//import { EntidadBusqueda } from 'src/app/model/entidadBusqueda';
 import { EntidadResumen } from 'src/app/model/entidadResumen';
 import { saveAs } from 'file-saver'
 
@@ -23,7 +23,7 @@ export class MatrizMonitorComponent implements OnInit, DoCheck {
   arrayEntidadResumen: Array<EntidadResumen> = new Array()
 
   entidadResumen: EntidadResumen
-  entidadBus: EntidadBusqueda = new EntidadBusqueda()
+  entidadBus: Entidad = new Entidad()
 
   isLoading = false;
   isDownload = false;
@@ -41,8 +41,7 @@ export class MatrizMonitorComponent implements OnInit, DoCheck {
   selTipEnt: String
   selOtrEnt: String
 
- public values: string
- public value: string = '0'
+  public value: string = '0'
 
   constructor(public _matrizMonitor: MatrizMonitorService
   , public _entidadService: EntidadService
@@ -69,7 +68,14 @@ export class MatrizMonitorComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(){
-    console.log('cambio detectado')
+    //console.log('cambio detectado')
+    // if (this.arrayEntidades)
+    // if(this.arrayEntidades.length > 0 && this.entidadBus.cEntidadFinanciera > 0){
+    //   this.arrayEntidades.forEach((ent) => {
+    //     if (ent.cEntidadFinanciera == this.entidadBus.cEntidadFinanciera)
+    //       this.entidadBus.Entidad = ent.Entidad
+    //   })
+    // }
   }
 /*
   onChange_fecha(event: any) {
@@ -82,11 +88,19 @@ export class MatrizMonitorComponent implements OnInit, DoCheck {
 */
   onChange_cargaOEF() {
     //console.log(this.entidadBus.cTipoEntidad);
-    if (this.entidadBus.cTipoEntidad != "0" && this.entidadBus.cEntidad != "0") {
+    if (this.entidadBus.cEntidadFinanciera > 0)
+      this.arrayEntidades.forEach(ent => {
+        if (ent.cEntidadFinanciera == this.entidadBus.cEntidadFinanciera)
+          this.entidadBus.Entidad = ent.Entidad
+      })
+
+    if (this.entidadBus.cTipoEntidad != 0 && this.entidadBus.cEntidadFinanciera != 0) {
       this.arrayOtrasEntidades = new Array();
       this.arrayEntidades.forEach(ent => {
-        if (ent.cTipoEntidad == this.entidadBus.cTipoEntidad && this.entidadBus.cEntidad != ent.cEntidadFinanciera)
-          this.arrayOtrasEntidades.push(ent)
+        if (ent.cTipoEntidad == this.entidadBus.cTipoEntidad && this.entidadBus.cEntidadFinanciera != ent.cEntidadFinanciera)
+          {this.arrayOtrasEntidades.push(ent)
+          //this.entidadBus.Entidad = ent.Entidad
+          }
       })
     }
   }
